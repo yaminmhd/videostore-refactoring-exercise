@@ -4,28 +4,28 @@ class Rental {
     this.days = days;
   }
 
-  calculateCost(code, days) {
+  calculateCost() {
     let thisAmount = 0;
 
     // determine amount for each movie
-    switch (code) {
+    switch (this.movie.code) {
       case "regular":
         thisAmount = 2;
-        if (days > 2) {
-          thisAmount += (days - 2) * 1.5;
+        if (this.days > 2) {
+          thisAmount += (this.days - 2) * 1.5;
         }
         break;
       case "new":
-        thisAmount = days * 3;
+        thisAmount = this.days * 3;
         break;
       case "children":
         thisAmount = 1.5;
-        if (days > 3) {
-          thisAmount += (days - 3) * 1.5;
+        if (this.days > 3) {
+          thisAmount += (this.days - 3) * 1.5;
         }
         break;
       default:
-        throw new Error("Invalid move type:" + code);
+        throw new Error("Invalid movie type:" + this.movie.code);
     }
     return thisAmount;
   }
