@@ -2,11 +2,13 @@ const Customer = require("./Customer");
 const Movie = require("./Movie");
 const Rental = require("./Rental");
 
-module.exports = function statement(customer, movies) {
+module.exports = function statement(customerRecord, movies) {
+  const customer = new Customer({ name: customerRecord.name });
+
   let totalAmount = 0;
   let frequentRenterPoints = 0;
   let result = `Rental Record for ${customer.name}\n`;
-  for (let r of customer.rentals) {
+  for (let r of customerRecord.rentals) {
     let movieTitle = movies[r.movieID].title;
     let code = movies[r.movieID].code;
 
@@ -15,7 +17,7 @@ module.exports = function statement(customer, movies) {
     let rental = new Rental(movie, r.days);
     let cost = rental.calculateCost(movie.code, r.days);
 
-    for (let rental of customer.rentals) {
+    for (let rental of customerRecord.rentals) {
       //add frequent renter points
       frequentRenterPoints++;
       // add bonus for a two day new release rental
