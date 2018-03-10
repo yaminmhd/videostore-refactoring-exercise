@@ -29,8 +29,7 @@ module.exports = function statement(customerRecord, movies) {
   }
 
   for (let rental of rentals) {
-    let frequentRenterPoints = rental.calculateFrequentRenterPoints();
-    result += `You earned ${frequentRenterPoints} frequent renter points\n`;
+    result += `You earned ${rental.calculateFrequentRenterPoints()} frequent renter points\n`;
   }
 
   //print figures for this rental
