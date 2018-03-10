@@ -30,13 +30,8 @@ class Rental {
     return thisAmount;
   }
 
-  calculateFrequentRenterPoints() {
-    let frequentRenterPoints = 0;
-    //add frequent renter points`
-    frequentRenterPoints++;
-    // add bonus for a two day new release rental
-    if (this.movie.code === "new" && this.days > 2) frequentRenterPoints++;
-    return frequentRenterPoints;
+  checkEligiblityForBonusPoints() {
+    return this.movie.code === "new" && this.days > 2;
   }
 }
 

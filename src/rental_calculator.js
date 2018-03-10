@@ -2,6 +2,15 @@ const Customer = require("./Customer");
 const Movie = require("./Movie");
 const Rental = require("./Rental");
 
+function getTotalCost(rentals) {
+  let totalAmount = 0;
+  for (let rental of rentals) {
+    let cost = rental.calculateCost();
+    totalAmount += cost;
+  }
+  return totalAmount;
+}
+
 module.exports = function statement(customerRecord, movies) {
   const customer = new Customer({ name: customerRecord.name });
 
@@ -17,6 +26,15 @@ module.exports = function statement(customerRecord, movies) {
       })
   );
 
+  function calculateFrequentRenterPoints(rentals) {
+    let frequentRenterPoints = 0;
+    for (let rental of rentals) {
+      frequentRenterPoints++;
+      if (rental.checkEligiblityForBonusPoints()) frequentRenterPoints++;
+    }
+    return frequentRenterPoints;
+  }
+
   let result = `Rental Record for ${customer.name}\n`;
   for (let rental of rentals) {
     let movie = rental.movie;
@@ -28,16 +46,12 @@ module.exports = function statement(customerRecord, movies) {
     //let rental = new Rental(movie, r.days);
   }
 
-  for (let rental of rentals) {
-    result += `You earned ${rental.calculateFrequentRenterPoints()} frequent renter points\n`;
-  }
-
   //print figures for this rental
-  let totalAmount = 0;
-  for (let rental of rentals) {
-    let cost = rental.calculateCost();
-    totalAmount += cost;
-  }
+  let totalAmount = getTotalCost(rentals);
+
   result += `Amount owed is ${totalAmount}\n`;
+  result += `You earned ${calculateFrequentRenterPoints(
+    rentals
+  )} frequent renter points\n`;
   return result;
 };
