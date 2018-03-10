@@ -28,13 +28,8 @@ module.exports = function statement(customerRecord, movies) {
     //let rental = new Rental(movie, r.days);
   }
 
-  let frequentRenterPoints = 0;
   for (let rental of rentals) {
-    let movie = rental.movie;
-    //add frequent renter points`
-    frequentRenterPoints++;
-    // add bonus for a two day new release rental
-    if (movie.code === "new" && rental.days > 2) frequentRenterPoints++;
+    let frequentRenterPoints = rental.calculateFrequentRenterPoints();
     result += `You earned ${frequentRenterPoints} frequent renter points\n`;
   }
 
