@@ -47,9 +47,9 @@ module.exports = function statement(customerRecord, movies) {
   }
 
   //print figures for this rental
-  let totalAmount = getTotalCost(rentals);
+  //let totalAmount = getTotalCost(rentals);
 
-  result += `Amount owed is ${totalAmount}\n`;
+  result += `Amount owed is ${getTotalCost(rentals)}\n`;
   result += `You earned ${calculateFrequentRenterPoints(
     rentals
   )} frequent renter points\n`;
