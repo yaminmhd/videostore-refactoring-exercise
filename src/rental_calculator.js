@@ -2,15 +2,6 @@ const Customer = require("./Customer");
 const Movie = require("./Movie");
 const Rental = require("./Rental");
 
-function getTotalCost(rentals) {
-  let totalAmount = 0;
-  for (let rental of rentals) {
-    let cost = rental.calculateCost();
-    totalAmount += cost;
-  }
-  return totalAmount;
-}
-
 module.exports = function statement(customerRecord, movies) {
   const customer = new Customer({ name: customerRecord.name });
 
@@ -25,6 +16,18 @@ module.exports = function statement(customerRecord, movies) {
         days: rental.days
       })
   );
+
+  function getTotalCost(rentals) {
+    // let totalAmount = 0;
+    // for (let rental of rentals) {
+    //   let cost = rental.calculateCost();
+    //   totalAmount += cost;
+    // }
+    // return totalAmount;
+    return rentals
+      .map(rental => rental.calculateCost())
+      .reduce((acc, cur) => acc + cur, 0);
+  }
 
   function calculateFrequentRenterPoints(rentals) {
     let frequentRenterPoints = 0;
